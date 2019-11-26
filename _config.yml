@@ -1,1 +1,5 @@
-theme: jekyll-theme-midnight
+title: Mouse's Dlog
+description: Development logs of mouse
+show_downloads: false
+google_analytics:
+theme: jekyll-theme-cayman
