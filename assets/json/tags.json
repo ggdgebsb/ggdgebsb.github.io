@@ -1,0 +1,8 @@
+---
+---
+[{% for tag in site.tags %}
+  {
+    "name": {{ tag | first | jsonify }},
+    "slug": {{ tag | first | slugify | jsonify }}
+  {% if forloop.last == false %}},{% else %}}
+{% endif %}{% endfor %}]

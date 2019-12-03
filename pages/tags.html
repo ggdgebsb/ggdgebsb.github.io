@@ -1,0 +1,39 @@
+---
+layout: default
+slug: page-tags
+---
+
+<section class="container-fluid section-first">
+  <div class="row skeleton">
+    <div class="col">
+      <h1 class="site-description text-shadow">
+        <span>Tags</span>
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="container section-posts bg-color-transparent">
+  <ul class="row row-sm-fill card-list skeleton">
+    <li class="col col-12">
+      <div class="card-item">
+        {% assign tags = "post" | split: ',' %}
+        {% capture post_tags %}
+        {% for tag in tags %}
+        {% assign slug = tag | slugify %}
+        {% include post-card-tag-content.html name=tag slug=slug %}
+        {% endfor %}
+        {% endcapture %}
+
+        {% include post-card-content.html
+          title="post title"
+          excerpt="post excerpt"
+          date="post date"
+          url="#"
+          tags=post_tags %}
+      </div>
+    </li>
+  </ul>
+</section>
+
+<script src="/assets/js/pages/tags.js"></script>

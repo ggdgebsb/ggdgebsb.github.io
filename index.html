@@ -1,0 +1,48 @@
+---
+layout: default
+slug: page-home
+---
+
+<section class="container-fluid section-first">
+  <div class="row">
+    <div class="col">
+      <h1 class="site-description text-shadow">
+        <span>{{ site.description }}</span>
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="container section-posts bg-color-transparent">
+  {% if site.posts.size %}
+  <ul class="row row-sm-fill card-list">
+    {% for post in site.posts %}
+    <li class="col col-12">
+      <div class="card-item">
+        {% capture post_tags %}
+        {% for tag in post.tags %}
+        {% assign slug = tag | slugify %}
+        {% include post-card-tag-content.html name=tag slug=slug %}
+        {% endfor %}
+        {% endcapture %}
+
+        {% assign post_date = post.date | date_to_long_string %}
+
+        {% include post-card-content.html
+          title=post.title
+          excerpt=post.excerpt
+          date=post_date
+          url=post.url
+          tags=post_tags %}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="highlighter-rouge text-center">
+    <div class="highlight">
+      <pre class="highlight"><code>현재 작성된 포스트가 없습니다.</code></pre>
+    </div>
+  </div>
+  {% endif %}
+</section>

@@ -32,7 +32,6 @@ body {
   font-size: 16px;
   line-height: 1.5;
   color: $body-text-color;
-  background-color: $body-background-color;
 }
 
 #skip-to-content {
@@ -70,7 +69,7 @@ a {
   border-color: rgba(255, 255, 255, 0.2);
   border-style: solid;
   border-width: 1px;
-  // border-radius: 0.3rem;
+  border-radius: 0.3rem;
   transition: color 0.2s, background-color 0.2s, border-color 0.2s;
 
   &:hover {
@@ -109,10 +108,8 @@ a {
 .page-header {
   color: $header-heading-color;
   text-align: center;
-  background-image: linear-gradient(0deg,
-    $header-bg-color-secondary 60%,
-    $header-bg-color 60%,
-    $header-bg-color-secondary 61%);
+  background-color: $header-bg-color;
+  background-image: linear-gradient(120deg, $header-bg-color-secondary, $header-bg-color);
 
   @include large {
     padding: 5rem 6rem;
@@ -128,14 +125,8 @@ a {
 }
 
 .project-name {
-  display: inline-block;
   margin-top: 0;
   margin-bottom: 0.1rem;
-  color: $accent-color;
-  text-shadow: 0 0 10px $accent-color;
-  // text-shadow: 0 0 10px $header-heading-color;
-  box-shadow: 0 0 20px 15px $body-background-color;
-  background-color: $body-background-color;
 
   @include large {
     font-size: 3.25rem;
@@ -153,22 +144,18 @@ a {
 .project-tagline {
   margin-bottom: 2rem;
   font-weight: normal;
-  // opacity: 0.7;
-  text-shadow: 0 0 10px $header-heading-color;
+  opacity: 0.7;
 
   @include large {
     font-size: 1.25rem;
-    margin-bottom: 1.6rem;
   }
 
   @include medium {
     font-size: 1.15rem;
-    margin-bottom: 0.3rem;
   }
 
   @include small {
     font-size: 1rem;
-    margin-bottom: -0.3rem;
   }
 }
 
@@ -200,7 +187,7 @@ a {
     background-color: #fafbfc;
     border: 1px solid #c6cbd1;
     border-bottom-color: #959da5;
-    // border-radius: 3px;
+    border-radius: 3px;
     box-shadow: inset 0 -1px 0 #959da5;
     color: #444d56;
     display: inline-block;
@@ -226,10 +213,6 @@ a {
     color: $section-headings-color;
   }
 
-  h1 {
-    border-bottom: 1px solid $section-headings-second-color;
-  }
-
   p {
     margin-bottom: 1em;
   }
@@ -240,7 +223,7 @@ a {
     font-size: 0.9rem;
     color: $code-text-color;
     background-color: $code-bg-color;
-    // border-radius: 0.3rem;
+    border-radius: 0.3rem;
   }
 
   pre {
@@ -251,8 +234,8 @@ a {
     color: $code-text-color;
     word-wrap: normal;
     background-color: $code-bg-color;
-    border: solid 1px $code-border-color;
-    // border-radius: 0.3rem;
+    border: solid 1px $border-color;
+    border-radius: 0.3rem;
 
     > code {
       padding: 0;
@@ -281,7 +264,7 @@ a {
     overflow: auto;
     font-size: 0.9rem;
     line-height: 1.45;
-    // border-radius: 0.3rem;
+    border-radius: 0.3rem;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -313,7 +296,6 @@ a {
     margin-left: 0;
     color: $blockquote-text-color;
     border-left: 0.3rem solid $border-color;
-    font-style: italic;
 
     > :first-child {
       margin-top: 0;
@@ -339,7 +321,7 @@ a {
     th,
     td {
       padding: 0.5rem 1rem;
-      border-bottom: 1px solid $table-border-color;
+      border: 1px solid $table-border-color;
     }
   }
 

@@ -2,30 +2,22 @@
 $large-breakpoint: 64em !default;
 $medium-breakpoint: 42em !default;
 
-// Colors
-$accent-color: #00ff00 !default;
-
 // Headers
-$header-heading-color: #ffffff !default;
-$header-bg-color: $accent-color;
-$header-bg-color-secondary: #1a1a1a !default;
+$header-heading-color: #fff !default;
+$header-bg-color: #159957 !default;
+$header-bg-color-secondary: #155799 !default;
 
 // Text
-$section-headings-color: #ffffff !default;
-$section-headings-second-color: rgb(55, 205, 55) !default;
-$body-text-color: #cdcdcd !default;
-$body-background-color: #1a1a1a !default;
-$body-link-color: rgb(55, 205, 55) !default;
-$blockquote-text-color: #9b9b9b !default;
+$section-headings-color: #159957 !default;
+$body-text-color: #606c71 !default;
+$body-link-color: #1e6bb8 !default;
+$blockquote-text-color: #819198 !default;
 
 // Code
-// $code-bg-color: #f3f6fa !default;
-$code-bg-color: #111111 !default;
-$code-text-color: rgb(55, 205, 55) !default;
-$code-border-color: #112211 !default;
+$code-bg-color: #f3f6fa !default;
+$code-text-color: #567482 !default;
 
 // Borders
-// $border-color: #dce6f0 !default;
-$border-color: rgb(55, 205, 55) !default;
+$border-color: #dce6f0 !default;
 $table-border-color: #e9ebec !default;
 $hr-border-color: #eff0f1 !default;
