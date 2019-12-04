@@ -1,8 +1,46 @@
----
----
-[{% for tag in site.tags %}
+[
   {
-    "name": {{ tag | first | jsonify }},
-    "slug": {{ tag | first | slugify | jsonify }}
-  {% if forloop.last == false %}},{% else %}}
-{% endif %}{% endfor %}]
+    "name": "나만의 블로그를 고급지게 만들어보자",
+    "slug": "나만의-블로그를-고급지게-만들어보자"
+  },
+  {
+    "name": "jekyll",
+    "slug": "jekyll"
+  },
+  {
+    "name": "ssg",
+    "slug": "ssg"
+  },
+  {
+    "name": "ruby",
+    "slug": "ruby"
+  },
+  {
+    "name": "liquid",
+    "slug": "liquid"
+  },
+  {
+    "name": "github",
+    "slug": "github"
+  },
+  {
+    "name": "database",
+    "slug": "database"
+  },
+  {
+    "name": "mysql",
+    "slug": "mysql"
+  },
+  {
+    "name": "transaction",
+    "slug": "transaction"
+  },
+  {
+    "name": "commit",
+    "slug": "commit"
+  },
+  {
+    "name": "rollback",
+    "slug": "rollback"
+  }
+]

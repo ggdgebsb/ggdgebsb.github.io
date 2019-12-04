@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  
+  <meta charset="UTF-8">
+
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>나만의 블로그를 고급지게 만들어보자 (2) | Mouse’s Logs</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="나만의 블로그를 고급지게 만들어보자 (2)" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="description" content="이번 장에는 이전 장에서 언급했던 것 처럼 Jekyll의 환결설정과 Front Matter에 대해 알아보겠습니다. 환경설정 여기서 환경설정의 의미는 Jekyll의 개발부터 빌드에 관여하는 기능들이 참조할 값들을 설정하는 것을 의미합니다. 미리 정의된 변수가 존재하며 있고 이를 비롯해서 다양한 변수를 사용자 정의 할 수 있습니다. 다양하고 많은 설정 값들이 존재하기 때문에 이 글에서는 간단히 전역 변수에 대한 기능을 다루고 넘어가겠습니다. 보다 자세한 내용은 여기를 참고하길 바랍니다. Jekyll은 YAML을 사용하여 프로젝트 루트 디렉토리에서 _config.yml 파일을 통해 환경설정을 정의합니다. 본격적으로 환경설정하기 전에 YAML에 대해 간단히 알아보고 갑시다. YAML YAML은 ‘YAML Ain’t Markup Language’의 약어로 데이터 직렬화 양식 중 하나입니다. JSON이나 XML 등 다른 양식에 비해 상대적으로 문법이 간결합니다. Sequence, Mappings 등 다양한 조함으로 데이터를 구조화하고 표현합니다. Sequence Sequence는 [와 ] 또는 -에 의해 나열된 요소의 그룹으로 표현되며 Flow Sequnce와 Block Sequence라는 두 가지 표현 방식이 있습니다. # Flow Sequnce [ first, second, third ] # Block Sequence - first - second - third Mappings Mappings는 {과 } 또는 :에 의해 키와 값으로 표현되며 Flow Mappings와 Block Mappings 두 가지 표현 방식이 있습니다. # Flow Mappings { first: 1, second: 2, third: 3 } # Block Mappings first: 1 second: 2 third: 3 환경설정 정의 Cayman 테마에서는 기본적으로 _config.yml 파알에 만들고자 하는 사이트의 타이틀과 설명에 대한 변수를 정의하고 있습니다. 이 값들을 여러분께서 직접 적절히 수정 후 파일을 저장해주세요. title: Mouse&#39;s Logs description: Just Simple Log Collection 여기서 정의된 값은 Liquid 템플릿 언어를 통해 미리 선언된 site 객체 변수의 인스턴스 변수로써 접근할 수 있습니다. _includes 디렉토리의 default.html 파일을 열어 보시면 아래와 같은 내용을 볼 수 있습니다. &lt;h1 class=&quot;project-name&quot;&gt;나만의 블로그를 고급지게 만들어보자 (2)&lt;/h1&gt; 여기서 표현된 이중 중괄호는 Liquid에서 제공되는 기능으로 Interpolation이라고 부릅니다. 이 기능은 Liquid에 의해 이중 중괄호를 포함한 내용을 이중 중괄호 안의 내용을 처리하고 반환된 결과값으로 대체합니다. 결과적으로 여기서 해당 줄은 site.title 값으로 대체하고 다음과 같이 변환됩니다. 이중 중괄호 안의 내용은 다음 장에서 설명됩니다. &lt;h1 class=&quot;project-name&quot;&gt;Mouse&#39;s Logs&lt;/h1&gt; 이 단락의 핵심 뷰 포인트는 환경설정을 통해 값을 정의하고 Liquid를 통해 해당 값을 변수로써 접근하여 다양한 제어가 가능하다는 것입니다. Front Matter Front Matter 또한 환경설정처럼 YAML을 사용하여 데이터를 정의합니다. 동작은 환경설정과 거의 비슷하지만 한 가지 뚜렷한 차이점이 있습니다. Front Matter를 선언 파일은 Jekyll에서 해당 파일을 특별하게 취급하고 처리를 합니다. Liquid를 사용 할 수 있는 기준이 되기도 합니다. 주의해야 할 사항은 이 Front Matter는 반드시 파일의 최상단에 위치해야 하고 ---로 시작과 끝을 지정하여 사이에 YAML 문법을 사용해야합니다. --- layout: post title: This is post title --- 여기서 정의된 변수들은 미리 선언된 page 객체 변수의 인스턴스 변수로써 접근할 수 있습니다. 미리 정의된 변수 등 자세한 내용은 여기를 참고하길 바랍니다. 마무리 YAML에 대한 간단한 문법과 환경설정 정의하는 방법 그리고 Front Matter에 대해 간략히 알아보았습니다. 다음 장에서는 블로그의 핵심인 페이지와 포스트 생성에 대해 알아보겠습니다." />
+<meta property="og:description" content="이번 장에는 이전 장에서 언급했던 것 처럼 Jekyll의 환결설정과 Front Matter에 대해 알아보겠습니다. 환경설정 여기서 환경설정의 의미는 Jekyll의 개발부터 빌드에 관여하는 기능들이 참조할 값들을 설정하는 것을 의미합니다. 미리 정의된 변수가 존재하며 있고 이를 비롯해서 다양한 변수를 사용자 정의 할 수 있습니다. 다양하고 많은 설정 값들이 존재하기 때문에 이 글에서는 간단히 전역 변수에 대한 기능을 다루고 넘어가겠습니다. 보다 자세한 내용은 여기를 참고하길 바랍니다. Jekyll은 YAML을 사용하여 프로젝트 루트 디렉토리에서 _config.yml 파일을 통해 환경설정을 정의합니다. 본격적으로 환경설정하기 전에 YAML에 대해 간단히 알아보고 갑시다. YAML YAML은 ‘YAML Ain’t Markup Language’의 약어로 데이터 직렬화 양식 중 하나입니다. JSON이나 XML 등 다른 양식에 비해 상대적으로 문법이 간결합니다. Sequence, Mappings 등 다양한 조함으로 데이터를 구조화하고 표현합니다. Sequence Sequence는 [와 ] 또는 -에 의해 나열된 요소의 그룹으로 표현되며 Flow Sequnce와 Block Sequence라는 두 가지 표현 방식이 있습니다. # Flow Sequnce [ first, second, third ] # Block Sequence - first - second - third Mappings Mappings는 {과 } 또는 :에 의해 키와 값으로 표현되며 Flow Mappings와 Block Mappings 두 가지 표현 방식이 있습니다. # Flow Mappings { first: 1, second: 2, third: 3 } # Block Mappings first: 1 second: 2 third: 3 환경설정 정의 Cayman 테마에서는 기본적으로 _config.yml 파알에 만들고자 하는 사이트의 타이틀과 설명에 대한 변수를 정의하고 있습니다. 이 값들을 여러분께서 직접 적절히 수정 후 파일을 저장해주세요. title: Mouse&#39;s Logs description: Just Simple Log Collection 여기서 정의된 값은 Liquid 템플릿 언어를 통해 미리 선언된 site 객체 변수의 인스턴스 변수로써 접근할 수 있습니다. _includes 디렉토리의 default.html 파일을 열어 보시면 아래와 같은 내용을 볼 수 있습니다. &lt;h1 class=&quot;project-name&quot;&gt;나만의 블로그를 고급지게 만들어보자 (2)&lt;/h1&gt; 여기서 표현된 이중 중괄호는 Liquid에서 제공되는 기능으로 Interpolation이라고 부릅니다. 이 기능은 Liquid에 의해 이중 중괄호를 포함한 내용을 이중 중괄호 안의 내용을 처리하고 반환된 결과값으로 대체합니다. 결과적으로 여기서 해당 줄은 site.title 값으로 대체하고 다음과 같이 변환됩니다. 이중 중괄호 안의 내용은 다음 장에서 설명됩니다. &lt;h1 class=&quot;project-name&quot;&gt;Mouse&#39;s Logs&lt;/h1&gt; 이 단락의 핵심 뷰 포인트는 환경설정을 통해 값을 정의하고 Liquid를 통해 해당 값을 변수로써 접근하여 다양한 제어가 가능하다는 것입니다. Front Matter Front Matter 또한 환경설정처럼 YAML을 사용하여 데이터를 정의합니다. 동작은 환경설정과 거의 비슷하지만 한 가지 뚜렷한 차이점이 있습니다. Front Matter를 선언 파일은 Jekyll에서 해당 파일을 특별하게 취급하고 처리를 합니다. Liquid를 사용 할 수 있는 기준이 되기도 합니다. 주의해야 할 사항은 이 Front Matter는 반드시 파일의 최상단에 위치해야 하고 ---로 시작과 끝을 지정하여 사이에 YAML 문법을 사용해야합니다. --- layout: post title: This is post title --- 여기서 정의된 변수들은 미리 선언된 page 객체 변수의 인스턴스 변수로써 접근할 수 있습니다. 미리 정의된 변수 등 자세한 내용은 여기를 참고하길 바랍니다. 마무리 YAML에 대한 간단한 문법과 환경설정 정의하는 방법 그리고 Front Matter에 대해 간략히 알아보았습니다. 다음 장에서는 블로그의 핵심인 페이지와 포스트 생성에 대해 알아보겠습니다." />
+<link rel="canonical" href="http://localhost:4000/2019/12/01/use-ssg-2" />
+<meta property="og:url" content="http://localhost:4000/2019/12/01/use-ssg-2" />
+<meta property="og:site_name" content="Mouse’s Logs" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-12-01T00:00:00+09:00" />
+<script type="application/ld+json">
+{"headline":"나만의 블로그를 고급지게 만들어보자 (2)","description":"이번 장에는 이전 장에서 언급했던 것 처럼 Jekyll의 환결설정과 Front Matter에 대해 알아보겠습니다. 환경설정 여기서 환경설정의 의미는 Jekyll의 개발부터 빌드에 관여하는 기능들이 참조할 값들을 설정하는 것을 의미합니다. 미리 정의된 변수가 존재하며 있고 이를 비롯해서 다양한 변수를 사용자 정의 할 수 있습니다. 다양하고 많은 설정 값들이 존재하기 때문에 이 글에서는 간단히 전역 변수에 대한 기능을 다루고 넘어가겠습니다. 보다 자세한 내용은 여기를 참고하길 바랍니다. Jekyll은 YAML을 사용하여 프로젝트 루트 디렉토리에서 _config.yml 파일을 통해 환경설정을 정의합니다. 본격적으로 환경설정하기 전에 YAML에 대해 간단히 알아보고 갑시다. YAML YAML은 ‘YAML Ain’t Markup Language’의 약어로 데이터 직렬화 양식 중 하나입니다. JSON이나 XML 등 다른 양식에 비해 상대적으로 문법이 간결합니다. Sequence, Mappings 등 다양한 조함으로 데이터를 구조화하고 표현합니다. Sequence Sequence는 [와 ] 또는 -에 의해 나열된 요소의 그룹으로 표현되며 Flow Sequnce와 Block Sequence라는 두 가지 표현 방식이 있습니다. # Flow Sequnce [ first, second, third ] # Block Sequence - first - second - third Mappings Mappings는 {과 } 또는 :에 의해 키와 값으로 표현되며 Flow Mappings와 Block Mappings 두 가지 표현 방식이 있습니다. # Flow Mappings { first: 1, second: 2, third: 3 } # Block Mappings first: 1 second: 2 third: 3 환경설정 정의 Cayman 테마에서는 기본적으로 _config.yml 파알에 만들고자 하는 사이트의 타이틀과 설명에 대한 변수를 정의하고 있습니다. 이 값들을 여러분께서 직접 적절히 수정 후 파일을 저장해주세요. title: Mouse&#39;s Logs description: Just Simple Log Collection 여기서 정의된 값은 Liquid 템플릿 언어를 통해 미리 선언된 site 객체 변수의 인스턴스 변수로써 접근할 수 있습니다. _includes 디렉토리의 default.html 파일을 열어 보시면 아래와 같은 내용을 볼 수 있습니다. &lt;h1 class=&quot;project-name&quot;&gt;나만의 블로그를 고급지게 만들어보자 (2)&lt;/h1&gt; 여기서 표현된 이중 중괄호는 Liquid에서 제공되는 기능으로 Interpolation이라고 부릅니다. 이 기능은 Liquid에 의해 이중 중괄호를 포함한 내용을 이중 중괄호 안의 내용을 처리하고 반환된 결과값으로 대체합니다. 결과적으로 여기서 해당 줄은 site.title 값으로 대체하고 다음과 같이 변환됩니다. 이중 중괄호 안의 내용은 다음 장에서 설명됩니다. &lt;h1 class=&quot;project-name&quot;&gt;Mouse&#39;s Logs&lt;/h1&gt; 이 단락의 핵심 뷰 포인트는 환경설정을 통해 값을 정의하고 Liquid를 통해 해당 값을 변수로써 접근하여 다양한 제어가 가능하다는 것입니다. Front Matter Front Matter 또한 환경설정처럼 YAML을 사용하여 데이터를 정의합니다. 동작은 환경설정과 거의 비슷하지만 한 가지 뚜렷한 차이점이 있습니다. Front Matter를 선언 파일은 Jekyll에서 해당 파일을 특별하게 취급하고 처리를 합니다. Liquid를 사용 할 수 있는 기준이 되기도 합니다. 주의해야 할 사항은 이 Front Matter는 반드시 파일의 최상단에 위치해야 하고 ---로 시작과 끝을 지정하여 사이에 YAML 문법을 사용해야합니다. --- layout: post title: This is post title --- 여기서 정의된 변수들은 미리 선언된 page 객체 변수의 인스턴스 변수로써 접근할 수 있습니다. 미리 정의된 변수 등 자세한 내용은 여기를 참고하길 바랍니다. 마무리 YAML에 대한 간단한 문법과 환경설정 정의하는 방법 그리고 Front Matter에 대해 간략히 알아보았습니다. 다음 장에서는 블로그의 핵심인 페이지와 포스트 생성에 대해 알아보겠습니다.","dateModified":"2019-12-01T00:00:00+09:00","datePublished":"2019-12-01T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2019/12/01/use-ssg-2"},"url":"http://localhost:4000/2019/12/01/use-ssg-2","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="/assets/css/style.css?v=">
+  <script src="/assets/js/app.js"></script>
+</head>
+
+<body class="use-ssg-2">
+  <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+  <div class="container-wrapper">
+    <header class="site-header" role="banner">
+      <section class="container-fluid site-header-wrapper">
+        <a href="/" class="site-name">Mouse's Logs</a>
+        <nav></nav>
+      </section>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <section class="container post-wrapper">
+  <div class="row card-list post-header">
+    <div class="col card-item bg-color-transparent">
+      
+
+      
+
+      <h5 class="card-date"><span>01 December 2019</span></h5>
+<h2 class="card-title">
+  <span><a href="/2019/12/01/use-ssg-2">나만의 블로그를 고급지게 만들어보자 (2)</a></span>
+</h2>
+
+<hr>
+<div class="tag-list">
+  <span class="card-meta-label">Tags:</span>
+  
+      
+      
+      <span class="tag-item"><a href="/pages/tags?tag=나만의 블로그를 고급지게 만들어보자">나만의 블로그를 고급지게 만들어보자</a></span>
+      
+      
+      <span class="tag-item"><a href="/pages/tags?tag=jekyll">jekyll</a></span>
+      
+      
+      <span class="tag-item"><a href="/pages/tags?tag=ssg">ssg</a></span>
+      
+      
+      <span class="tag-item"><a href="/pages/tags?tag=ruby">ruby</a></span>
+      
+      
+      <span class="tag-item"><a href="/pages/tags?tag=liquid">liquid</a></span>
+      
+      
+      <span class="tag-item"><a href="/pages/tags?tag=github">github</a></span>
+      
+      
+</div>
+    </div>
+  </div>
+
+  <div class="row post-body">
+    <div class="col">
+      <p>이번 장에는 이전 장에서 언급했던 것 처럼 Jekyll의 환결설정과 Front Matter에 대해 알아보겠습니다.</p>
+
+<h1 id="환경설정">환경설정</h1>
+
+<p>여기서 환경설정의 의미는 Jekyll의 개발부터 빌드에 관여하는 기능들이 참조할 값들을 설정하는 것을 의미합니다.
+미리 정의된 변수가 존재하며 있고 이를 비롯해서 다양한 변수를 사용자 정의 할 수 있습니다.
+다양하고 많은 설정 값들이 존재하기 때문에 이 글에서는 간단히 전역 변수에 대한 기능을 다루고 넘어가겠습니다.
+보다 자세한 내용은 <a href="https://jekyllrb-ko.github.io/docs/configuration/">여기</a>를 참고하길 바랍니다.</p>
+
+<p>Jekyll은 YAML을 사용하여 프로젝트 루트 디렉토리에서 <code class="highlighter-rouge">_config.yml</code> 파일을 통해 환경설정을 정의합니다.
+본격적으로 환경설정하기 전에 YAML에 대해 간단히 알아보고 갑시다.</p>
+
+<h2 id="yaml">YAML</h2>
+
+<p>YAML은 ‘YAML Ain’t Markup Language’의 약어로 데이터 직렬화 양식 중 하나입니다. JSON이나 XML 등
+다른 양식에 비해 상대적으로 문법이 간결합니다. <code class="highlighter-rouge">Sequence</code>, <code class="highlighter-rouge">Mappings</code> 등 다양한 조함으로 데이터를 구조화하고 표현합니다.</p>
+
+<h3 id="sequence">Sequence</h3>
+
+<p>Sequence는 <code class="highlighter-rouge">[</code>와 <code class="highlighter-rouge">]</code> 또는 <code class="highlighter-rouge">-</code>에 의해 나열된 요소의 그룹으로 표현되며 <code class="highlighter-rouge">Flow Sequnce</code>와 <code class="highlighter-rouge">Block Sequence</code>라는 두 가지 표현 방식이 있습니다.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Flow Sequnce</span>
+<span class="pi">[</span> <span class="nv">first</span><span class="pi">,</span> <span class="nv">second</span><span class="pi">,</span> <span class="nv">third</span> <span class="pi">]</span>
+
+<span class="c1"># Block Sequence</span>
+<span class="pi">-</span> <span class="s">first</span>
+<span class="pi">-</span> <span class="s">second</span>
+<span class="pi">-</span> <span class="s">third</span>
+</code></pre></div></div>
+
+<h3 id="mappings">Mappings</h3>
+
+<p>Mappings는 <code class="highlighter-rouge">{</code>과 <code class="highlighter-rouge">}</code> 또는 <code class="highlighter-rouge">:</code>에 의해 키와 값으로 표현되며 <code class="highlighter-rouge">Flow Mappings</code>와 <code class="highlighter-rouge">Block Mappings</code> 두 가지 표현 방식이 있습니다.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Flow Mappings</span>
+<span class="pi">{</span> <span class="nv">first</span><span class="pi">:</span> <span class="nv">1</span><span class="pi">,</span> <span class="nv">second</span><span class="pi">:</span> <span class="nv">2</span><span class="pi">,</span> <span class="nv">third</span><span class="pi">:</span> <span class="nv">3</span> <span class="pi">}</span>
+
+<span class="c1"># Block Mappings</span>
+<span class="na">first</span><span class="pi">:</span> <span class="m">1</span>
+<span class="na">second</span><span class="pi">:</span> <span class="m">2</span>
+<span class="na">third</span><span class="pi">:</span> <span class="m">3</span>
+</code></pre></div></div>
+
+<h2 id="환경설정-정의">환경설정 정의</h2>
+
+<p>Cayman 테마에서는 기본적으로 _config.yml 파알에 만들고자 하는 사이트의 타이틀과 설명에 대한 변수를 정의하고 있습니다.
+이 값들을 여러분께서 직접 적절히 수정 후 파일을 저장해주세요.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">title</span><span class="pi">:</span> <span class="s">Mouse's Logs</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s">Just Simple Log Collection</span>
+</code></pre></div></div>
+
+<p>여기서 정의된 값은 Liquid 템플릿 언어를 통해 미리 선언된 <code class="highlighter-rouge">site</code> 객체 변수의 인스턴스 변수로써 접근할 수 있습니다.
+<code class="highlighter-rouge">_includes</code> 디렉토리의 default.html 파일을 열어 보시면 아래와 같은 내용을 볼 수 있습니다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"project-name"</span><span class="nt">&gt;</span>나만의 블로그를 고급지게 만들어보자 (2)<span class="nt">&lt;/h1&gt;</span>
+</code></pre></div></div>
+
+<p>여기서 표현된 이중 중괄호는 Liquid에서 제공되는 기능으로 <code class="highlighter-rouge">Interpolation</code>이라고 부릅니다. 이 기능은 Liquid에 의해
+이중 중괄호를 포함한 내용을 이중 중괄호 안의 내용을 처리하고 반환된 결과값으로 대체합니다. 결과적으로 여기서 해당 줄은
+<code class="highlighter-rouge">site.title</code> 값으로 대체하고 다음과 같이 변환됩니다.</p>
+
+<blockquote>
+  <p>이중 중괄호 안의 내용은 다음 장에서 설명됩니다.</p>
+</blockquote>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"project-name"</span><span class="nt">&gt;</span>Mouse's Logs<span class="nt">&lt;/h1&gt;</span>
+</code></pre></div></div>
+
+<p>이 단락의 핵심 뷰 포인트는 환경설정을 통해 값을 정의하고 Liquid를 통해 해당 값을 변수로써 접근하여 다양한 제어가 가능하다는 것입니다.</p>
+
+<h1 id="front-matter">Front Matter</h1>
+
+<p>Front Matter 또한 환경설정처럼 YAML을 사용하여 데이터를 정의합니다. 동작은 환경설정과 거의 비슷하지만 한 가지 뚜렷한 차이점이 있습니다.
+Front Matter를 선언 파일은 Jekyll에서 해당 파일을 특별하게 취급하고 처리를 합니다. Liquid를 사용 할 수 있는 기준이 되기도 합니다.
+주의해야 할 사항은 이 Front Matter는 반드시 파일의 최상단에 위치해야 하고 <code class="highlighter-rouge">---</code>로 시작과 끝을 지정하여 사이에 YAML 문법을 사용해야합니다.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">post</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s">This is post title</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p>여기서 정의된 변수들은 미리 선언된 <code class="highlighter-rouge">page</code> 객체 변수의 인스턴스 변수로써 접근할 수 있습니다. 미리 정의된 변수 등 자세한 내용은
+<a href="https://jekyllrb-ko.github.io/docs/frontmatter/">여기</a>를 참고하길 바랍니다.</p>
+
+<h1 id="마무리">마무리</h1>
+
+<p>YAML에 대한 간단한 문법과 환경설정 정의하는 방법 그리고 Front Matter에 대해 간략히 알아보았습니다.
+다음 장에서는 블로그의 핵심인 페이지와 포스트 생성에 대해 알아보겠습니다.</p>
+
+    </div>
+  </div>
+</section>
+    </main>
+
+    <footer class="site-footer">
+      <section class="container-fluid">
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub
+            Pages</a>.</span>
+      </section>
+      
+    </footer>
+  </div>
+
+  
+</body>
+
+</html>

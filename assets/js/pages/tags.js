@@ -1,5 +1,3 @@
----
----
 'use strict';
 
 (function () {
@@ -94,15 +92,21 @@
     excerpt = excerpt.replace(/\n/g, '')
       .replace(/<h\d.+\/h\d>/g, '')
       .replace(/<[^>]*>/g, '')
-      .substr(0, {{ site.excerpt_truncate }});
+      .substr(0, 180);
 
     return `
-      {% include post-card-content.html
-        title="${title}"
-        excerpt="${excerpt}"
-        date="${date}"
-        url="${url}"
-        tags="${tags}" %}
+      <h5 class="card-date"><span>${date}</span></h5>
+<h2 class="card-title">
+  <span><a href="${url}">${title}</a></span>
+</h2>
+
+<p class="card-excerpt"><span>${excerpt}</span></p>
+
+<hr>
+<div class="tag-list">
+  <span class="card-meta-label">Tags:</span>
+  ${tags}
+</div>
     `;
   }
 
@@ -118,7 +122,7 @@
 
   function getPostCardTagHtml(tag) {
     return `
-      {% include post-card-tag-content.html name="${tag}" %}
+      <span class="tag-item"><a href="/pages/tags?tag=${tag}">${tag}</a></span>
     `;
   }
 })();

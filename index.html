@@ -1,48 +1,235 @@
----
-layout: default
-slug: page-home
----
+<!DOCTYPE html>
+<html lang="ko-KR">
 
-<section class="container-fluid section-first">
+<head>
+  
+  <meta charset="UTF-8">
+
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Mouse’s Logs | Just Simple Log Collection</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Mouse’s Logs" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="description" content="Just Simple Log Collection" />
+<meta property="og:description" content="Just Simple Log Collection" />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:site_name" content="Mouse’s Logs" />
+<script type="application/ld+json">
+{"headline":"Mouse’s Logs","description":"Just Simple Log Collection","@type":"WebSite","url":"http://localhost:4000/","name":"Mouse’s Logs","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="/assets/css/style.css?v=">
+  <script src="/assets/js/app.js"></script>
+</head>
+
+<body class="page-home">
+  <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+  <div class="container-wrapper">
+    <header class="site-header" role="banner">
+      <section class="container-fluid site-header-wrapper">
+        <a href="/" class="site-name">Mouse's Logs</a>
+        <nav></nav>
+      </section>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <section class="container-fluid section-first">
   <div class="row">
     <div class="col">
       <h1 class="site-description text-shadow">
-        <span>{{ site.description }}</span>
+        <span>Just Simple Log Collection</span>
       </h1>
     </div>
   </div>
 </section>
 
 <section class="container section-posts bg-color-transparent">
-  {% if site.posts.size %}
+  
   <ul class="row row-sm-fill card-list">
-    {% for post in site.posts %}
+    
     <li class="col col-12">
       <div class="card-item">
-        {% capture post_tags %}
-        {% for tag in post.tags %}
-        {% assign slug = tag | slugify %}
-        {% include post-card-tag-content.html name=tag slug=slug %}
-        {% endfor %}
-        {% endcapture %}
+        
 
-        {% assign post_date = post.date | date_to_long_string %}
+        
 
-        {% include post-card-content.html
-          title=post.title
-          excerpt=post.excerpt
-          date=post_date
-          url=post.url
-          tags=post_tags %}
+        <h5 class="card-date"><span>02 December 2019</span></h5>
+<h2 class="card-title">
+  <span><a href="/2019/12/02/mysql-autocommit-commit-rollback">MySQL: autocommit, Commit, and Rollback</a></span>
+</h2>
+
+<p class="card-excerpt"><span>MySQL의 autocommit에 대해 기억이 가물가물하여 5.7버전의 ‘14.7.2.2 autocommit, Commit, and Rollback’ 메뉴얼을이름은 역기요, 성이 번씨인 조력자(?)와 함께 번역 해보았습니다.  원문: https://dev.mysql.com/doc/refman/5.7/en/innodb...</span></p>
+
+<hr>
+<div class="tag-list">
+  <span class="card-meta-label">Tags:</span>
+  
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=database">database</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=mysql">mysql</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=transaction">transaction</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=commit">commit</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=rollback">rollback</a></span>
+        
+        
+</div>
       </div>
     </li>
-    {% endfor %}
+    
+    <li class="col col-12">
+      <div class="card-item">
+        
+
+        
+
+        <h5 class="card-date"><span>01 December 2019</span></h5>
+<h2 class="card-title">
+  <span><a href="/2019/12/01/use-ssg-3">나만의 블로그를 고급지게 만들어보자 (3)</a></span>
+</h2>
+
+<p class="card-excerpt"><span>이번 장에서는 블로그의 핵심인 페이지와 포스트에 대해서 알아보는 시간을 가지겠습니다.지금까지 Jekyll을 이용한 정적 사이트 개발 환경을 구성으로 시작하여 페이지와 포스트 작성에 대해 알아보았습니다.이외에도 Jekyll은 다양한 기능 제공하며 Sass/SCSS 통해 페이지를 스타일링 할 수 있고 플러그인을 통해기능...</span></p>
+
+<hr>
+<div class="tag-list">
+  <span class="card-meta-label">Tags:</span>
+  
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=나만의 블로그를 고급지게 만들어보자">나만의 블로그를 고급지게 만들어보자</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=ssg">ssg</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=ruby">ruby</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=jekyll">jekyll</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=liquid">liquid</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=github">github</a></span>
+        
+        
+</div>
+      </div>
+    </li>
+    
+    <li class="col col-12">
+      <div class="card-item">
+        
+
+        
+
+        <h5 class="card-date"><span>01 December 2019</span></h5>
+<h2 class="card-title">
+  <span><a href="/2019/12/01/use-ssg-2">나만의 블로그를 고급지게 만들어보자 (2)</a></span>
+</h2>
+
+<p class="card-excerpt"><span>이번 장에는 이전 장에서 언급했던 것 처럼 Jekyll의 환결설정과 Front Matter에 대해 알아보겠습니다.YAML에 대한 간단한 문법과 환경설정 정의하는 방법 그리고 Front Matter에 대해 간략히 알아보았습니다.다음 장에서는 블로그의 핵심인 페이지와 포스트 생성에 대해 알아보겠습니다.</span></p>
+
+<hr>
+<div class="tag-list">
+  <span class="card-meta-label">Tags:</span>
+  
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=나만의 블로그를 고급지게 만들어보자">나만의 블로그를 고급지게 만들어보자</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=jekyll">jekyll</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=ssg">ssg</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=ruby">ruby</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=liquid">liquid</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=github">github</a></span>
+        
+        
+</div>
+      </div>
+    </li>
+    
+    <li class="col col-12">
+      <div class="card-item">
+        
+
+        
+
+        <h5 class="card-date"><span>01 December 2019</span></h5>
+<h2 class="card-title">
+  <span><a href="/2019/12/01/use-ssg-1">나만의 블로그를 고급지게 만들어보자 (1)</a></span>
+</h2>
+
+<p class="card-excerpt"><span>최근에 팀원들과 함께 협업을 진행하면서 제가 알고 있는 지식이나 정보 따위를 공유할 때 몇 가지 불편한 점이 있었습니다.전달하고자 하는 내용이 정리되지 않았거나, 팀원을 비롯한 다른 사람들에게 전달되지 못하거나, 반복적으로 언급해야 하는 등여러 가지 문제점이 발생했고 이 문제점을 해결하기 위해 이전부터 생각만 하고 ...</span></p>
+
+<hr>
+<div class="tag-list">
+  <span class="card-meta-label">Tags:</span>
+  
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=나만의 블로그를 고급지게 만들어보자">나만의 블로그를 고급지게 만들어보자</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=jekyll">jekyll</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=ssg">ssg</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=ruby">ruby</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=liquid">liquid</a></span>
+        
+        
+        <span class="tag-item"><a href="/pages/tags?tag=github">github</a></span>
+        
+        
+</div>
+      </div>
+    </li>
+    
   </ul>
-  {% else %}
-  <div class="highlighter-rouge text-center">
-    <div class="highlight">
-      <pre class="highlight"><code>현재 작성된 포스트가 없습니다.</code></pre>
-    </div>
-  </div>
-  {% endif %}
+  
 </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <section class="container-fluid">
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub
+            Pages</a>.</span>
+      </section>
+      
+    </footer>
+  </div>
+
+  
+</body>
+
+</html>
