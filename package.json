@@ -1,0 +1,40 @@
+{
+  "name": "mouse-github-blog",
+  "version": "1.0.0",
+  "description": "this is just simple blog made by using jekyll",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bundle exec jekyll serve",
+    "build": "bundle exec jekyll build",
+    "bundling": "npm run bundling-prod",
+    "bundling-dev": "webpack --config webpack.config.dev.js",
+    "bundling-prod": "webpack --config webpack.config.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ggdgebsb/ggdgebsb.github.io.git"
+  },
+  "keywords": [
+    "blog",
+    "jekyll"
+  ],
+  "author": "ggdgebsb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ggdgebsb/ggdgebsb.github.io/issues"
+  },
+  "homepage": "https://github.com/ggdgebsb/ggdgebsb.github.io#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "moment": "^2.24.0",
+    "query-string": "^6.9.0"
+  },
+  "devDependencies": {
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  }
+}

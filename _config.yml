@@ -1,0 +1,24 @@
+title: Mouse's Logs
+description: Just Simple Log Collection
+show_downloads: false
+google_analytics:
+theme: jekyll-theme-cayman
+lang: ko-KR
+excerpt_separator: <!--more-->
+excerpt_truncate: 180
+
+exclude:
+  - readme.md
+  - README.md
+  - /*.js
+  - /*.json
+  - /*.gemspec
+  - /script
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      permalink: "/:year/:month/:day/:title"

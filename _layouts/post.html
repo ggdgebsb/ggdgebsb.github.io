@@ -1,0 +1,30 @@
+---
+layout: default
+---
+
+<section class="container post-wrapper">
+  <div class="row card-list post-header">
+    <div class="col card-item bg-color-transparent">
+      {% capture page_tags %}
+      {% for tag in page.tags %}
+      {% assign slug = tag | slugify %}
+      {% include post-card-tag-content.html name=tag slug=slug %}
+      {% endfor %}
+      {% endcapture %}
+
+      {% assign page_date = page.date | date_to_long_string %}
+
+      {% include post-card-content.html
+        title=page.title
+        date=page_date
+        url=page.url
+        tags=page_tags %}
+    </div>
+  </div>
+
+  <div class="row post-body">
+    <div class="col">
+      {{ content }}
+    </div>
+  </div>
+</section>

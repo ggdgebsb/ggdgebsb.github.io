@@ -1,0 +1,13 @@
+<h5 class="card-date"><span>{{ include.date }}</span></h5>
+<h2 class="card-title">
+  <span><a href="{{ include.url }}">{{ include.title }}</a></span>
+</h2>
+{% if include.excerpt %}
+<p class="card-excerpt"><span>{{ include.excerpt | replace_regex: "\n", "" | 
+    replace_regex: "<h\d.+/h\d>?", "" | strip_html | truncate: site.excerpt_truncate }}</span></p>
+{% endif %}
+<hr>
+<div class="tag-list">
+  <span class="card-meta-label">Tags:</span>
+  {{ include.tags }}
+</div>
