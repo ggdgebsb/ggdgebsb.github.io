@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  
+  <meta charset="UTF-8">
+
+  <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>MySQL: autocommit, Commit, and Rollback | Mouse’s Logs</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="MySQL: autocommit, Commit, and Rollback" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="description" content="MySQL의 autocommit에 대해 기억이 가물가물하여 5.7버전의 ‘14.7.2.2 autocommit, Commit, and Rollback’ 메뉴얼을 이름은 역기요, 성이 번씨인 조력자(?)와 함께 번역 해보았습니다. 14.7.2.2 autocommit, Commit, and Rollback InnoDB에서 모든 사용자 활동은 트랜잭션 내에서 발생합니다. autocommit 모드가 사용 가능한 경우 각 SQL문은 자체적으로 단일 트랜잭션을 형성합니다. 기본적으로 MySQL은 autocommit이 활성화된 상태에서 새 연결마다 세션을 시작합니다. 입력된 명령문이 오류를 발생시키지 않으면 MySQL은 각 SQL문 후에 커밋을 수행합니다. 명령문이 오류를 발생시길 경우 커밋 또는 롤백 동작은 오류에 따라 달라집니다. 자세한 내용은 14.22.4, “InnoDB Error Handling” 절을 참고해주세요. autocommit이 사용 가능한 세션은 START TRANSACTION 또는 BEGIN 문으로 명시적으로 시작하여 COMMIT 또는 ROLLBACK문으로 종료하여 다중 명령문 트랜잭션을 수행 할 수 있습니다. 자세한 내용은 13.3.1, “START TRANSACTION, COMMIT, and ROLLBACK Statements” 절을 참고해주세요. SET autocommit = 0 명령문을 통해 세션에서 autocommit 모드를 비활성화하면 해당 세션은 항상 트랜잭션이 열려 있습니다. COMMIT 또는 ROLLBACK문은 현재 트랜잭션을 종료하고 새 트랜잭션을 시작합니다. autocommit이 비활성화된 세션이 최종 트랜잭션을 명시적으로 커밋하지 않고 종료되면 MySQL은 해당 트랜잭션을 롤백합니다. 일부 명령문은 명령문을 실행하기 전에 COMMIT을 수행한 것처럼 트랜잭션을 암시적으로 종료합니다. 자세한 내용은 13.3.3, “Statements That Cause an Implicit Commit” 절을 참고하길 바랍니다. COMMIT은 현재 트랜잭션에서 작성된 변경 사항이 영구적이며 다른 세션에서 볼 수 있음을 의미합니다. 반면에 ROLLBACK은 현재 트랜잭션에 의해 작성된 모든 수정 사항을 취소합니다. COMMIT 및 ROLLBACK은 현재 트랜잭션에서 설정된 모든 InnoDB 잠금을 해제합니다. 트랜잭션과 DML 작업 그룹화 기본적으로 MySQL 서버에 대한 연결은 autocommit 모드가 활성화된 상태에서 시작하여 실행 시 모든 SQL문을 자동으로 커밋합니다. 다른 데이터베이스 시스템에 대한 사용 경험이 있는 경우 이 작동 모드는 익숙하지 않을 수 있습니다. 여기서 DML문 시퀀스를 발행하고 커밋하거나 모두 롤백하는 것이 표준 관행입니다. 다중 명령문 트랜잭션을 사용하려면 SET autocommit = 0 명령문으로 autocommit을 끄고 각 트랜잭션을 적절하게 COMMIT 또는 ROLLBACK으로 종료할 수 있습니다. autocommit을 유지하려면 START TRANSACTION나 BEGIN으로 각 트랜잭션을 시작하고 COMMIT 또는 ROLLBACK으로 종료할 수 있습니다. 다음 예제는 두 개의 트랜잭션을 보여줍니다. 첫 번째는 커밋되고 두 번째는 롤백됩니다. shell&gt; mysql test mysql&gt; CREATE TABLE customer (a INT, b CHAR (20), INDEX (a)); Query OK, 0 rows affected (0.00 sec) mysql&gt; -- Do a transaction with autocommit turned on. mysql&gt; START TRANSACTION; Query OK, 0 rows affected (0.00 sec) mysql&gt; INSERT INTO customer VALUES (10, &#39;Heikki&#39;); Query OK, 1 row affected (0.00 sec) mysql&gt; COMMIT; Query OK, 0 rows affected (0.00 sec) mysql&gt; -- Do another transaction with autocommit turned off. mysql&gt; SET autocommit=0; Query OK, 0 rows affected (0.00 sec) mysql&gt; INSERT INTO customer VALUES (15, &#39;John&#39;); Query OK, 1 row affected (0.00 sec) mysql&gt; INSERT INTO customer VALUES (20, &#39;Paul&#39;); Query OK, 1 row affected (0.00 sec) mysql&gt; DELETE FROM customer WHERE b = &#39;Heikki&#39;; Query OK, 1 row affected (0.00 sec) mysql&gt; -- Now we undo those last 2 inserts and the delete. mysql&gt; ROLLBACK; Query OK, 0 rows affected (0.00 sec) mysql&gt; SELECT * FROM customer; +------+--------+ | a | b | +------+--------+ | 10 | Heikki | +------+--------+ 1 row in set (0.00 sec) mysql&gt; 클라이언트 측 언어에서의 트랜잭션 PHP, Perl DBI, JDBC, ODBC 또는 MySQL의 표준 C 호출 인터페이스와 같은 API에서 COMMIT과 같은 트랜잭션 제어 명령문을 SELECT 또는 INSERT와 같은 다른 SQL문과 마찬가지로 문자열로 MySQL 서버에 보낼 수 있습니다. 일부 API는 별도의 특수 트랜잭션 COMMIT과 및 ROLLBACK 함수 또는 메소드를 제공합니다. 마무리 원문: https://dev.mysql.com/doc/refman/5.7/en/innodb-autocommit-commit-rollback.html" />
+<meta property="og:description" content="MySQL의 autocommit에 대해 기억이 가물가물하여 5.7버전의 ‘14.7.2.2 autocommit, Commit, and Rollback’ 메뉴얼을 이름은 역기요, 성이 번씨인 조력자(?)와 함께 번역 해보았습니다. 14.7.2.2 autocommit, Commit, and Rollback InnoDB에서 모든 사용자 활동은 트랜잭션 내에서 발생합니다. autocommit 모드가 사용 가능한 경우 각 SQL문은 자체적으로 단일 트랜잭션을 형성합니다. 기본적으로 MySQL은 autocommit이 활성화된 상태에서 새 연결마다 세션을 시작합니다. 입력된 명령문이 오류를 발생시키지 않으면 MySQL은 각 SQL문 후에 커밋을 수행합니다. 명령문이 오류를 발생시길 경우 커밋 또는 롤백 동작은 오류에 따라 달라집니다. 자세한 내용은 14.22.4, “InnoDB Error Handling” 절을 참고해주세요. autocommit이 사용 가능한 세션은 START TRANSACTION 또는 BEGIN 문으로 명시적으로 시작하여 COMMIT 또는 ROLLBACK문으로 종료하여 다중 명령문 트랜잭션을 수행 할 수 있습니다. 자세한 내용은 13.3.1, “START TRANSACTION, COMMIT, and ROLLBACK Statements” 절을 참고해주세요. SET autocommit = 0 명령문을 통해 세션에서 autocommit 모드를 비활성화하면 해당 세션은 항상 트랜잭션이 열려 있습니다. COMMIT 또는 ROLLBACK문은 현재 트랜잭션을 종료하고 새 트랜잭션을 시작합니다. autocommit이 비활성화된 세션이 최종 트랜잭션을 명시적으로 커밋하지 않고 종료되면 MySQL은 해당 트랜잭션을 롤백합니다. 일부 명령문은 명령문을 실행하기 전에 COMMIT을 수행한 것처럼 트랜잭션을 암시적으로 종료합니다. 자세한 내용은 13.3.3, “Statements That Cause an Implicit Commit” 절을 참고하길 바랍니다. COMMIT은 현재 트랜잭션에서 작성된 변경 사항이 영구적이며 다른 세션에서 볼 수 있음을 의미합니다. 반면에 ROLLBACK은 현재 트랜잭션에 의해 작성된 모든 수정 사항을 취소합니다. COMMIT 및 ROLLBACK은 현재 트랜잭션에서 설정된 모든 InnoDB 잠금을 해제합니다. 트랜잭션과 DML 작업 그룹화 기본적으로 MySQL 서버에 대한 연결은 autocommit 모드가 활성화된 상태에서 시작하여 실행 시 모든 SQL문을 자동으로 커밋합니다. 다른 데이터베이스 시스템에 대한 사용 경험이 있는 경우 이 작동 모드는 익숙하지 않을 수 있습니다. 여기서 DML문 시퀀스를 발행하고 커밋하거나 모두 롤백하는 것이 표준 관행입니다. 다중 명령문 트랜잭션을 사용하려면 SET autocommit = 0 명령문으로 autocommit을 끄고 각 트랜잭션을 적절하게 COMMIT 또는 ROLLBACK으로 종료할 수 있습니다. autocommit을 유지하려면 START TRANSACTION나 BEGIN으로 각 트랜잭션을 시작하고 COMMIT 또는 ROLLBACK으로 종료할 수 있습니다. 다음 예제는 두 개의 트랜잭션을 보여줍니다. 첫 번째는 커밋되고 두 번째는 롤백됩니다. shell&gt; mysql test mysql&gt; CREATE TABLE customer (a INT, b CHAR (20), INDEX (a)); Query OK, 0 rows affected (0.00 sec) mysql&gt; -- Do a transaction with autocommit turned on. mysql&gt; START TRANSACTION; Query OK, 0 rows affected (0.00 sec) mysql&gt; INSERT INTO customer VALUES (10, &#39;Heikki&#39;); Query OK, 1 row affected (0.00 sec) mysql&gt; COMMIT; Query OK, 0 rows affected (0.00 sec) mysql&gt; -- Do another transaction with autocommit turned off. mysql&gt; SET autocommit=0; Query OK, 0 rows affected (0.00 sec) mysql&gt; INSERT INTO customer VALUES (15, &#39;John&#39;); Query OK, 1 row affected (0.00 sec) mysql&gt; INSERT INTO customer VALUES (20, &#39;Paul&#39;); Query OK, 1 row affected (0.00 sec) mysql&gt; DELETE FROM customer WHERE b = &#39;Heikki&#39;; Query OK, 1 row affected (0.00 sec) mysql&gt; -- Now we undo those last 2 inserts and the delete. mysql&gt; ROLLBACK; Query OK, 0 rows affected (0.00 sec) mysql&gt; SELECT * FROM customer; +------+--------+ | a | b | +------+--------+ | 10 | Heikki | +------+--------+ 1 row in set (0.00 sec) mysql&gt; 클라이언트 측 언어에서의 트랜잭션 PHP, Perl DBI, JDBC, ODBC 또는 MySQL의 표준 C 호출 인터페이스와 같은 API에서 COMMIT과 같은 트랜잭션 제어 명령문을 SELECT 또는 INSERT와 같은 다른 SQL문과 마찬가지로 문자열로 MySQL 서버에 보낼 수 있습니다. 일부 API는 별도의 특수 트랜잭션 COMMIT과 및 ROLLBACK 함수 또는 메소드를 제공합니다. 마무리 원문: https://dev.mysql.com/doc/refman/5.7/en/innodb-autocommit-commit-rollback.html" />
+<meta property="og:site_name" content="Mouse’s Logs" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-12-02T00:00:00+09:00" />
+<script type="application/ld+json">
+{"headline":"MySQL: autocommit, Commit, and Rollback","description":"MySQL의 autocommit에 대해 기억이 가물가물하여 5.7버전의 ‘14.7.2.2 autocommit, Commit, and Rollback’ 메뉴얼을 이름은 역기요, 성이 번씨인 조력자(?)와 함께 번역 해보았습니다. 14.7.2.2 autocommit, Commit, and Rollback InnoDB에서 모든 사용자 활동은 트랜잭션 내에서 발생합니다. autocommit 모드가 사용 가능한 경우 각 SQL문은 자체적으로 단일 트랜잭션을 형성합니다. 기본적으로 MySQL은 autocommit이 활성화된 상태에서 새 연결마다 세션을 시작합니다. 입력된 명령문이 오류를 발생시키지 않으면 MySQL은 각 SQL문 후에 커밋을 수행합니다. 명령문이 오류를 발생시길 경우 커밋 또는 롤백 동작은 오류에 따라 달라집니다. 자세한 내용은 14.22.4, “InnoDB Error Handling” 절을 참고해주세요. autocommit이 사용 가능한 세션은 START TRANSACTION 또는 BEGIN 문으로 명시적으로 시작하여 COMMIT 또는 ROLLBACK문으로 종료하여 다중 명령문 트랜잭션을 수행 할 수 있습니다. 자세한 내용은 13.3.1, “START TRANSACTION, COMMIT, and ROLLBACK Statements” 절을 참고해주세요. SET autocommit = 0 명령문을 통해 세션에서 autocommit 모드를 비활성화하면 해당 세션은 항상 트랜잭션이 열려 있습니다. COMMIT 또는 ROLLBACK문은 현재 트랜잭션을 종료하고 새 트랜잭션을 시작합니다. autocommit이 비활성화된 세션이 최종 트랜잭션을 명시적으로 커밋하지 않고 종료되면 MySQL은 해당 트랜잭션을 롤백합니다. 일부 명령문은 명령문을 실행하기 전에 COMMIT을 수행한 것처럼 트랜잭션을 암시적으로 종료합니다. 자세한 내용은 13.3.3, “Statements That Cause an Implicit Commit” 절을 참고하길 바랍니다. COMMIT은 현재 트랜잭션에서 작성된 변경 사항이 영구적이며 다른 세션에서 볼 수 있음을 의미합니다. 반면에 ROLLBACK은 현재 트랜잭션에 의해 작성된 모든 수정 사항을 취소합니다. COMMIT 및 ROLLBACK은 현재 트랜잭션에서 설정된 모든 InnoDB 잠금을 해제합니다. 트랜잭션과 DML 작업 그룹화 기본적으로 MySQL 서버에 대한 연결은 autocommit 모드가 활성화된 상태에서 시작하여 실행 시 모든 SQL문을 자동으로 커밋합니다. 다른 데이터베이스 시스템에 대한 사용 경험이 있는 경우 이 작동 모드는 익숙하지 않을 수 있습니다. 여기서 DML문 시퀀스를 발행하고 커밋하거나 모두 롤백하는 것이 표준 관행입니다. 다중 명령문 트랜잭션을 사용하려면 SET autocommit = 0 명령문으로 autocommit을 끄고 각 트랜잭션을 적절하게 COMMIT 또는 ROLLBACK으로 종료할 수 있습니다. autocommit을 유지하려면 START TRANSACTION나 BEGIN으로 각 트랜잭션을 시작하고 COMMIT 또는 ROLLBACK으로 종료할 수 있습니다. 다음 예제는 두 개의 트랜잭션을 보여줍니다. 첫 번째는 커밋되고 두 번째는 롤백됩니다. shell&gt; mysql test mysql&gt; CREATE TABLE customer (a INT, b CHAR (20), INDEX (a)); Query OK, 0 rows affected (0.00 sec) mysql&gt; -- Do a transaction with autocommit turned on. mysql&gt; START TRANSACTION; Query OK, 0 rows affected (0.00 sec) mysql&gt; INSERT INTO customer VALUES (10, &#39;Heikki&#39;); Query OK, 1 row affected (0.00 sec) mysql&gt; COMMIT; Query OK, 0 rows affected (0.00 sec) mysql&gt; -- Do another transaction with autocommit turned off. mysql&gt; SET autocommit=0; Query OK, 0 rows affected (0.00 sec) mysql&gt; INSERT INTO customer VALUES (15, &#39;John&#39;); Query OK, 1 row affected (0.00 sec) mysql&gt; INSERT INTO customer VALUES (20, &#39;Paul&#39;); Query OK, 1 row affected (0.00 sec) mysql&gt; DELETE FROM customer WHERE b = &#39;Heikki&#39;; Query OK, 1 row affected (0.00 sec) mysql&gt; -- Now we undo those last 2 inserts and the delete. mysql&gt; ROLLBACK; Query OK, 0 rows affected (0.00 sec) mysql&gt; SELECT * FROM customer; +------+--------+ | a | b | +------+--------+ | 10 | Heikki | +------+--------+ 1 row in set (0.00 sec) mysql&gt; 클라이언트 측 언어에서의 트랜잭션 PHP, Perl DBI, JDBC, ODBC 또는 MySQL의 표준 C 호출 인터페이스와 같은 API에서 COMMIT과 같은 트랜잭션 제어 명령문을 SELECT 또는 INSERT와 같은 다른 SQL문과 마찬가지로 문자열로 MySQL 서버에 보낼 수 있습니다. 일부 API는 별도의 특수 트랜잭션 COMMIT과 및 ROLLBACK 함수 또는 메소드를 제공합니다. 마무리 원문: https://dev.mysql.com/doc/refman/5.7/en/innodb-autocommit-commit-rollback.html","dateModified":"2019-12-02T00:00:00+09:00","datePublished":"2019-12-02T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/2019/12/02/mysql-autocommit-commit-rollback"},"url":"/2019/12/02/mysql-autocommit-commit-rollback","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="/assets/css/style.css?v=">
+  <script src="/assets/js/app.js"></script>
+</head>
+
+<body class="mysql-autocommit-commit-rollback">
+  <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+  <div class="container-wrapper">
+    <header class="site-header" role="banner">
+      <section class="container-fluid site-header-wrapper">
+        <a href="/" class="site-name">Mouse's Logs</a>
+        <nav></nav>
+      </section>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <section class="container post-wrapper">
+  <div class="row card-list post-header">
+    <div class="col card-item bg-color-transparent">
+      
+
+      
+
+      <h5 class="card-date"><span>02 December 2019</span></h5>
+<h2 class="card-title">
+  <span><a href="/2019/12/02/mysql-autocommit-commit-rollback">MySQL: autocommit, Commit, and Rollback</a></span>
+</h2>
+
+<hr>
+<div class="tag-list">
+  <span class="card-meta-label">Tags:</span>
+  
+      
+      
+      <span class="tag-item"><a href="/pages/tags?tag=database">database</a></span>
+      
+      
+      <span class="tag-item"><a href="/pages/tags?tag=mysql">mysql</a></span>
+      
+      
+      <span class="tag-item"><a href="/pages/tags?tag=transaction">transaction</a></span>
+      
+      
+      <span class="tag-item"><a href="/pages/tags?tag=commit">commit</a></span>
+      
+      
+      <span class="tag-item"><a href="/pages/tags?tag=rollback">rollback</a></span>
+      
+      
+</div>
+    </div>
+  </div>
+
+  <div class="row post-body">
+    <div class="col">
+      <p>MySQL의 autocommit에 대해 기억이 가물가물하여 <em>5.7</em>버전의 ‘14.7.2.2 autocommit, Commit, and Rollback’ 메뉴얼을
+이름은 <em>역기</em>요, 성이 <em>번</em>씨인 조력자(?)와 함께 번역 해보았습니다.</p>
+
+<h1 id="14722-autocommit-commit-and-rollback">14.7.2.2 autocommit, Commit, and Rollback</h1>
+
+<p>InnoDB에서 모든 사용자 활동은 트랜잭션 내에서 발생합니다. <em>autocommit</em> 모드가 사용 가능한 경우 각 SQL문은 자체적으로 단일 트랜잭션을 형성합니다. 기본적으로 MySQL은 <em>autocommit</em>이 활성화된 상태에서 새 연결마다 세션을 시작합니다. 입력된 명령문이 오류를 발생시키지 않으면 MySQL은 각 SQL문 후에 커밋을 수행합니다. 명령문이 오류를 발생시길 경우 커밋 또는 롤백 동작은 오류에 따라 달라집니다. 자세한 내용은 <a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-error-handling.html">14.22.4, “InnoDB Error Handling” 절</a>을 참고해주세요.</p>
+
+<p><em>autocommit</em>이 사용 가능한 세션은 <code class="highlighter-rouge">START TRANSACTION</code> 또는 <code class="highlighter-rouge">BEGIN</code> 문으로 명시적으로 시작하여 <code class="highlighter-rouge">COMMIT</code> 또는 <code class="highlighter-rouge">ROLLBACK</code>문으로 종료하여 다중 명령문 트랜잭션을 수행 할 수 있습니다. 자세한 내용은 <a href="https://dev.mysql.com/doc/refman/5.7/en/commit.html">13.3.1, “START TRANSACTION, COMMIT, and ROLLBACK Statements” 절</a>을 참고해주세요.</p>
+
+<p><code class="highlighter-rouge">SET autocommit = 0</code> 명령문을 통해 세션에서 <em>autocommit</em> 모드를 비활성화하면 해당 세션은 항상 트랜잭션이 열려 있습니다. <code class="highlighter-rouge">COMMIT</code> 또는 <code class="highlighter-rouge">ROLLBACK</code>문은 현재 트랜잭션을 종료하고 새 트랜잭션을 시작합니다.</p>
+
+<p><em>autocommit</em>이 비활성화된 세션이 최종 트랜잭션을 명시적으로 커밋하지 않고 종료되면 MySQL은 해당 트랜잭션을 롤백합니다.</p>
+
+<p>일부 명령문은 명령문을 실행하기 전에 <code class="highlighter-rouge">COMMIT</code>을 수행한 것처럼 트랜잭션을 암시적으로 종료합니다. 자세한 내용은 <a href="https://dev.mysql.com/doc/refman/5.7/en/implicit-commit.html">13.3.3, “Statements That Cause an Implicit Commit” 절</a>을 참고하길 바랍니다.</p>
+
+<p><code class="highlighter-rouge">COMMIT</code>은 현재 트랜잭션에서 작성된 변경 사항이 영구적이며 다른 세션에서 볼 수 있음을 의미합니다. 반면에 <code class="highlighter-rouge">ROLLBACK</code>은 현재 트랜잭션에 의해 작성된 모든 수정 사항을 취소합니다. <code class="highlighter-rouge">COMMIT</code> 및 <code class="highlighter-rouge">ROLLBACK</code>은 현재 트랜잭션에서 설정된 모든 InnoDB 잠금을 해제합니다.</p>
+
+<h2 id="트랜잭션과-dml-작업-그룹화">트랜잭션과 DML 작업 그룹화</h2>
+
+<p>기본적으로 MySQL 서버에 대한 연결은 <em>autocommit</em> 모드가 활성화된 상태에서 시작하여 실행 시 모든 SQL문을 자동으로 커밋합니다. 다른 데이터베이스 시스템에 대한 사용 경험이 있는 경우 이 작동 모드는 익숙하지 않을 수 있습니다. 여기서 DML문 시퀀스를 발행하고 커밋하거나 모두 롤백하는 것이 표준 관행입니다.</p>
+
+<p>다중 명령문 트랜잭션을 사용하려면 <code class="highlighter-rouge">SET autocommit = 0</code> 명령문으로 <em>autocommit</em>을 끄고 각 트랜잭션을 적절하게 <code class="highlighter-rouge">COMMIT</code> 또는 <code class="highlighter-rouge">ROLLBACK</code>으로 종료할 수 있습니다. <em>autocommit을</em> 유지하려면 <code class="highlighter-rouge">START TRANSACTION</code>나 <code class="highlighter-rouge">BEGIN</code>으로 각 트랜잭션을 시작하고 <code class="highlighter-rouge">COMMIT</code> 또는 <code class="highlighter-rouge">ROLLBACK</code>으로 종료할 수 있습니다. 다음 예제는 두 개의 트랜잭션을 보여줍니다. 첫 번째는 커밋되고 두 번째는 롤백됩니다.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shell&gt; mysql <span class="nb">test</span>
+</code></pre></div></div>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">customer</span> <span class="p">(</span><span class="n">a</span> <span class="nb">INT</span><span class="p">,</span> <span class="n">b</span> <span class="nb">CHAR</span> <span class="p">(</span><span class="mi">20</span><span class="p">),</span> <span class="k">INDEX</span> <span class="p">(</span><span class="n">a</span><span class="p">));</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="k">rows</span> <span class="n">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="c1">-- Do a transaction with autocommit turned on.</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">START</span> <span class="n">TRANSACTION</span><span class="p">;</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="k">rows</span> <span class="n">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">customer</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s1">'Heikki'</span><span class="p">);</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">1</span> <span class="k">row</span> <span class="n">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">COMMIT</span><span class="p">;</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="k">rows</span> <span class="n">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="c1">-- Do another transaction with autocommit turned off.</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">SET</span> <span class="n">autocommit</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="k">rows</span> <span class="n">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">customer</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">'John'</span><span class="p">);</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">1</span> <span class="k">row</span> <span class="n">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">customer</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="s1">'Paul'</span><span class="p">);</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">1</span> <span class="k">row</span> <span class="n">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">DELETE</span> <span class="k">FROM</span> <span class="n">customer</span> <span class="k">WHERE</span> <span class="n">b</span> <span class="o">=</span> <span class="s1">'Heikki'</span><span class="p">;</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">1</span> <span class="k">row</span> <span class="n">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="c1">-- Now we undo those last 2 inserts and the delete.</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">ROLLBACK</span><span class="p">;</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="k">rows</span> <span class="n">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">customer</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">------+--------+</span>
+<span class="o">|</span> <span class="n">a</span>    <span class="o">|</span> <span class="n">b</span>      <span class="o">|</span>
+<span class="o">+</span><span class="c1">------+--------+</span>
+<span class="o">|</span>   <span class="mi">10</span> <span class="o">|</span> <span class="n">Heikki</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">------+--------+</span>
+<span class="mi">1</span> <span class="k">row</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+<span class="n">mysql</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<h2 id="클라이언트-측-언어에서의-트랜잭션">클라이언트 측 언어에서의 트랜잭션</h2>
+
+<p>PHP, Perl DBI, JDBC, ODBC 또는 MySQL의 표준 C 호출 인터페이스와 같은 API에서 <code class="highlighter-rouge">COMMIT</code>과 같은 트랜잭션 제어 명령문을 <code class="highlighter-rouge">SELECT</code> 또는 <code class="highlighter-rouge">INSERT</code>와 같은 다른 SQL문과 마찬가지로 문자열로 MySQL 서버에 보낼 수 있습니다. 일부 API는 별도의 특수 트랜잭션 <code class="highlighter-rouge">COMMIT</code>과 및 <code class="highlighter-rouge">ROLLBACK</code> 함수 또는 메소드를 제공합니다.</p>
+
+<h1 id="마무리">마무리</h1>
+
+<blockquote>
+  <p>원문: https://dev.mysql.com/doc/refman/5.7/en/innodb-autocommit-commit-rollback.html</p>
+</blockquote>
+
+    </div>
+  </div>
+</section>
+    </main>
+
+    <footer class="site-footer">
+      <section class="container-fluid">
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub
+            Pages</a>.</span>
+      </section>
+      
+    </footer>
+  </div>
+
+  
+</body>
+
+</html>
