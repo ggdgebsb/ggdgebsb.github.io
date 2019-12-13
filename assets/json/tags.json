@@ -4,43 +4,43 @@
     "slug": "나만의-블로그를-고급지게-만들어보자"
   },
   {
-    "name": "jekyll",
+    "name": "Jekyll",
     "slug": "jekyll"
   },
   {
-    "name": "ssg",
+    "name": "SSG",
     "slug": "ssg"
   },
   {
-    "name": "ruby",
+    "name": "Ruby",
     "slug": "ruby"
   },
   {
-    "name": "liquid",
+    "name": "Liquid",
     "slug": "liquid"
   },
   {
-    "name": "github",
+    "name": "Github",
     "slug": "github"
   },
   {
-    "name": "database",
+    "name": "Database",
     "slug": "database"
   },
   {
-    "name": "mysql",
+    "name": "MySQL",
     "slug": "mysql"
   },
   {
-    "name": "transaction",
+    "name": "Transaction",
     "slug": "transaction"
   },
   {
-    "name": "commit",
+    "name": "Commit",
     "slug": "commit"
   },
   {
-    "name": "rollback",
+    "name": "Rollback",
     "slug": "rollback"
   },
   {
@@ -56,11 +56,23 @@
     "slug": "web-app"
   },
   {
-    "name": "hhybrid App",
-    "slug": "hhybrid-app"
+    "name": "Hybrid App",
+    "slug": "hybrid-app"
   },
   {
     "name": "PWA",
     "slug": "pwa"
+  },
+  {
+    "name": "SPF",
+    "slug": "spf"
+  },
+  {
+    "name": "DKIM",
+    "slug": "dkim"
+  },
+  {
+    "name": "DMARC",
+    "slug": "dmarc"
   }
 ]
