@@ -74,5 +74,17 @@
   {
     "name": "DMARC",
     "slug": "dmarc"
+  },
+  {
+    "name": "Terminology",
+    "slug": "terminology"
+  },
+  {
+    "name": "Design",
+    "slug": "design"
+  },
+  {
+    "name": "Web Graphic Design",
+    "slug": "web-graphic-design"
   }
 ]

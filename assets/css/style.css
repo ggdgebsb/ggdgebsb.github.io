@@ -437,6 +437,8 @@ a:hover { text-decoration: none; color: #97ff97; }
 
 .main-content blockquote { font-style: italic; }
 
+.main-content blockquote b, .main-content blockquote em, .main-content blockquote strong { color: rgba(205, 205, 205, 0.7); }
+
 .main-content table th, .main-content table td { border: none; border-bottom: 1px solid #fff; }
 
 .main-content hr { height: 1px; }
@@ -496,7 +498,7 @@ a:hover { text-decoration: none; color: #97ff97; }
 
 .main-content .post-body .col { padding-top: 0; margin: 0 auto; }
 
-.main-content .post-body .col > :first-child { padding-top: 3rem; }
+.main-content .post-body .col > :first-child { margin-top: 3rem; }
 
 .page-404 .site-header, .page-404 .site-footer { position: absolute; width: 100%; }
 
