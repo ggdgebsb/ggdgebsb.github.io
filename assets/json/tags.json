@@ -76,6 +76,10 @@
     "slug": "dmarc"
   },
   {
+    "name": "spam",
+    "slug": "spam"
+  },
+  {
     "name": "Terminology",
     "slug": "terminology"
   },
@@ -86,5 +90,17 @@
   {
     "name": "Web Graphic Design",
     "slug": "web-graphic-design"
+  },
+  {
+    "name": "DNS",
+    "slug": "dns"
+  },
+  {
+    "name": "PTR Record",
+    "slug": "ptr-record"
+  },
+  {
+    "name": "Spam",
+    "slug": "spam"
   }
 ]
