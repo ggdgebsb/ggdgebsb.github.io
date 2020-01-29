@@ -102,5 +102,17 @@
   {
     "name": "Spam",
     "slug": "spam"
+  },
+  {
+    "name": "Javascript",
+    "slug": "javascript"
+  },
+  {
+    "name": "Prototype",
+    "slug": "prototype"
+  },
+  {
+    "name": "Extend",
+    "slug": "extend"
   }
 ]
